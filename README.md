@@ -1,4 +1,4 @@
 cLover
 ======
 
-platform for self-organizing collaborative networks
+node.js platform for self-organizing collaborative networks
