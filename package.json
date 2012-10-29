@@ -1,0 +1,18 @@
+{
+  "author": "Jason White <zympht@gmail.com> (http://zympht.com)",
+  "name": "netfoundry",
+  "description": "platform for self-organizing collaborative object networks",
+  "version": "0.0.1",
+  "homepage": "http://netfoundry.org",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zympht/netfoundry.git"
+  },
+  "main": "netfoundry.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

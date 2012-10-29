@@ -1,21 +1,12 @@
-var config = require('../../lib/config.js');
-var NodeState = require('../../lib/nodeState.js');
-var amqpMgr = require('../../lib/amqpManager.js');
-var NodeMessageReceiver = require('../../lib/nodeMessageReceiver.js');
+var netfoundry = require('../../netfoundry.js');
 var util = require('util');
 
-config.stateChangeProcessors['simple'] = '../examples/chain/simpleStateChangeProcessor.js';
+netfoundry.config.stateChangeProcessors['simple'] = '../examples/chain/simpleStateChangeProcessor.js';
 
-amqpMgr.initialize(function() {
-	setSubscriber();
-});
+netfoundry.initialize(setSubscriber);
 
 function setSubscriber() {
-	var receiver = new NodeMessageReceiver('simple');
-	receiver.on('ready', function() {
-		run();
-	});
-	receiver.start();
+	netfoundry.startProcessor('simple', run);
 }
 
 function run() {
@@ -23,7 +14,7 @@ function run() {
 	var nodes = new Array();
 
 	for (var i=0; i < 10; i++) {
-		nodes[i] = new NodeState({
+		nodes[i] = new netfoundry.NodeState({
 			uri: getUri(i),
 			type: 'simple'
 		});
@@ -38,11 +29,11 @@ function run() {
 
 	//trigger state change
 	setTimeout(function() {
-		NodeState.load(getUri(9), function(err,node) {	
+		netfoundry.NodeState.load(getUri(9), function(err,node) {	
 			node.setState('hello');
 			node.save(function(err) {
 				setTimeout(function() {
-					NodeState.load(getUri(0), function(err,node) {
+					netfoundry.NodeState.load(getUri(0), function(err,node) {
 						console.log(node.state); //'hello876543210'
 						process.exit();
 					});
