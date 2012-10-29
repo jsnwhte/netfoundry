@@ -191,41 +191,12 @@ exports.NodeStateTest = {
 		test.done();
 	},
 	
-	/*
-	testStringify: function(test) {
-		test.expect(6);
-		
-		var node = new NodeState({
-			uri: URI1,
-			type: 'foo'			
-		});
-		
-		node.addOutgoingLink(URI2);
-		node.addIncomingLink(URI3);
-		node.addIncomingLink(URI4);
-		node.receiveLinkAddAck(URI2, OUTGOING, true);
-		node.receiveLinkAddAck(URI3, INCOMING, true);
-		node.setState('hello');
-		
-		var s = node.stringify();
-		
-		var node2 = new NodeState(s);
-		test.equal(node2.uri, URI1);
-		test.equal(node2.type, 'foo');
-		test.equal(node2.state, 'hello');
-		test.equal(node2.outgoingLinks.length, 1);
-		test.equal(node2.incomingLinks.length, 1);
-		test.ok(node2.hasPendingIncomingLink(URI4));
-		test.done();
-	},
-	*/
-	
 	testSave: function(test) {
 		test.expect(2);
 	
 		var node = new NodeState({uri:URI1, type: 'foo'});
 		node.setState('hello');
-		var s = JSON.stringify(node);
+		var s = JSON.parse(JSON.stringify(node));
 		
 		mockery.registerMock('./nodeStateStorage.js', {
 			save: function(uri, data) {
