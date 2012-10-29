@@ -3,14 +3,31 @@
   "name": "netfoundry",
   "description": "platform for self-organizing collaborative object networks",
   "version": "0.0.1",
+  "keywords": ["network"],
+  "maintainers": [
+  	{"name":"Jason White", "email":"zympht@gmail.com", "web":"http://zympht.com"}
+  ],
+  "contributors": [
+  	{"name":"Jason White", "email":"zympht@gmail.com", "web":"http://zympht.com"}
+  ],
+  "licenses": [
+  	{"type":"University of Illinois/NCSA Open Source License", "url":"http://otm.illinois.edu/uiuc_openSource"}
+  ],
   "homepage": "http://netfoundry.org",
   "repository": {
     "type": "git",
     "url": "git://github.com/zympht/netfoundry.git"
   },
   "main": "netfoundry.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+  	"amqp":"0.1.4",
+  	"mongoose":"3.3.1",
+  	"rabbit.js":"0.2.0"
+  },
+  "devDependencies": {
+  	"nodeunit":"0.7.4",
+  	"mockery":"0.1.2"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
