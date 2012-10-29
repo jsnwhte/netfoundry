@@ -3,7 +3,7 @@ netfoundry
 
 netfoundry is a node.js based platform for self-organizing collaborative object networks. Objects link to each other, share state and notify each other of state changes. All interactions are event driven and queued via RabbitMQ. Object state is persisted in MongoDB.
 
-netfoundry is based upon the <a href="http://the-object.net/">Object Network</a> and <a href="http://forest-roa.org/">FOREST</a> projects of <a href="http://duncan-cragg.org/">Duncan Cragg</a>. 
+netfoundry is based upon ideas from the <a href="http://the-object.net/">Object Network</a> and <a href="http://forest-roa.org/">FOREST</a> projects of <a href="http://duncan-cragg.org/">Duncan Cragg</a>. 
 
 Example
 =======
