@@ -2,12 +2,13 @@ var NodeState = require('../../lib/nodeState.js');
 
 module.exports = {
 	
-	processStateChange: function(node, fromUri) {
+	processStateChange: function(fromUri) {
+		var toNode = this;
 		NodeState.load(fromUri, function(err, fromNode) {
-			var uri = node.uri;
+			var uri = toNode.uri;
 			var nodeNum = uri.substring(uri.length - 1);
-			node.setState(fromNode.state + nodeNum);
-			node.save();
+			toNode.setState(fromNode.state + nodeNum);
+			toNode.save();
 		});
 	}
 }
