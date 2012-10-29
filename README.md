@@ -15,13 +15,14 @@ var netfoundry = require('netfoundry');
 
 //Specify how we would like our 'simple' nodes to react to state changes.
 //In this example, we want to concatenate the state.
-netfoundry.config.stateChangeProcessors['simple'] = {processStateChange: function(node1, fromUri) {
+netfoundry.config.stateChangeProcessors['simple'] = function(fromUri) {
+  var node1 = this;
   netfoundry.NodeState.load(fromUri, function(err, node2) {
     if (err) throw err;
     node1.state.value += node2.state.value;
     node1.save();
   });
-}}
+}
 
 //Initialize netfoundry
 netfoundry.initialize(run);
