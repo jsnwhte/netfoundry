@@ -5,6 +5,15 @@ netfoundry is a node.js based platform for self-organizing collaborative object 
 
 netfoundry is based upon ideas from the <a href="http://the-object.net/">Object Network</a> and <a href="http://forest-roa.org/">FOREST</a> projects of <a href="http://duncan-cragg.org/">Duncan Cragg</a>. 
 
+Dependencies
+============
+Install the following packages to get the examples running:
+* amqp
+* mongoose
+* rabbit.js
+
+You will also obviously have to install the underlying software systems those packages require: MongoDB and RabbitMQ.
+
 Example
 =======
 This example can be found in the examples/hello-world directory.
