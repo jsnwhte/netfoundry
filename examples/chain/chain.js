@@ -4,7 +4,7 @@ var amqpMgr = require('../../lib/amqpManager.js');
 var NodeMessageReceiver = require('../../lib/nodeMessageReceiver.js');
 var util = require('util');
 
-config.stateChangeProcessors['simple'] = '../examples/simple/simpleStateChangeProcessor.js';
+config.stateChangeProcessors['simple'] = '../examples/chain/simpleStateChangeProcessor.js';
 
 amqpMgr.initialize(function() {
 	setSubscriber();
@@ -46,10 +46,10 @@ function run() {
 						console.log(node.state); //'hello876543210'
 						process.exit();
 					});
-				}, 2000);
+				}, 1000);
 			});
 		});
-	}, 2000);
+	}, 1000);
 
 
 }
