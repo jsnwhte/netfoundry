@@ -29,7 +29,9 @@ function run() {
         netfoundry.NodeState.load(node1.uri, function(err, updatedNode1) {
           if (err) throw err;
           console.log(updatedNode1.state.value); // 'hello world'
-          process.exit();
+          netfoundry.stop(function() {
+	          process.exit();
+	      });
         });
       }, 1000);
     });
