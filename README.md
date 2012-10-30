@@ -10,9 +10,8 @@ Dependencies
 Install the following packages to get the examples running:
 * amqp
 * mongoose
-* rabbit.js
 
-You will also obviously have to install the underlying software systems those packages require: MongoDB and RabbitMQ.
+You will also obviously have to install the underlying software systems those packages require: MongoDB and RabbitMQ (or some amqp compliant messaging system, but so far I've only tried RabbitMQ).
 
 Example
 =======
