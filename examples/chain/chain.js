@@ -19,8 +19,11 @@ function run() {
 			type: 'simple'
 		});
 		nodes[i].save();
-		
 	}
+
+	netfoundry.NodeState.count('simple', function(err, count) {
+		console.log('There are %d "simple" nodes', count);
+	});
 
 	//create some links, chaining nodes together
 	for (var i=0; i < 9; i++) {
