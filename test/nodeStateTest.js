@@ -81,10 +81,10 @@ exports.NodeStateTest = {
 		test.expect(6);
 		
 		var node = new NodeState({uri:URI1});
-		node.on('linkRequest', function(fromUri, toUri, linkType) {
+		node.on('linkRequest', function(fromUri, toUri, direction) {
 			test.equal(fromUri, URI1);
 			test.equal(toUri, URI2);
-			test.equal(linkType, OUTGOING);
+			test.equal(direction, OUTGOING);
 			test.ok(node.hasPendingOutgoingLink(URI2));
 			
 			node.receiveLinkAddAck(URI2, OUTGOING, true);
@@ -110,7 +110,7 @@ exports.NodeStateTest = {
 		node.removeOutgoingLink(URI3);
 		test.ok(!node.hasPendingOutgoingLink(URI3));
 
-		node.on('linkRemove', function(fromUri, toUri, linkType) {
+		node.on('linkRemove', function(fromUri, toUri, direction) {
 			test.equal(node.outgoingLinks.length,0);
 
 			test.done();		
@@ -138,10 +138,10 @@ exports.NodeStateTest = {
 		test.expect(6);
 		
 		var node = new NodeState({uri:URI1});
-		node.on('linkRequest', function(fromUri, toUri, linkType) {
+		node.on('linkRequest', function(fromUri, toUri, direction) {
 			test.equal(fromUri, URI1);
 			test.equal(toUri, URI2);
-			test.equal(linkType, INCOMING);
+			test.equal(direction, INCOMING);
 			test.ok(node.hasPendingIncomingLink(URI2));
 			
 			node.receiveLinkAddAck(URI2, INCOMING, true);
@@ -167,7 +167,7 @@ exports.NodeStateTest = {
 		node.removeIncomingLink(URI3);
 		test.ok(!node.hasPendingIncomingLink(URI3));
 
-		node.on('linkRemove', function(fromUri, toUri, linkType) {
+		node.on('linkRemove', function(fromUri, toUri, direction) {
 			test.equal(node.incomingLinks.length,0);
 
 			test.done();		
