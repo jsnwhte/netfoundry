@@ -93,15 +93,15 @@ exports.NodeStateTest = {
 
 			test.done();
 		});
-		node.addOutgoingLink(URI2);
+		node.addOutgoingLink({linkUri:URI2});
 	},
 	
 	testRemoveOutgoingLink: function(test) {
 		test.expect(5);
 		
 		var node = new NodeState({uri:URI1});
-		node.addOutgoingLink(URI2);
-		node.addOutgoingLink(URI3);
+		node.addOutgoingLink({linkUri:URI2});
+		node.addOutgoingLink({linkUri:URI3});
 		node.receiveLinkAddAck(URI2, OUTGOING, true);
 		test.ok(!node.hasPendingOutgoingLink(URI2));
 		test.ok(node.hasPendingOutgoingLink(URI3));
@@ -123,7 +123,7 @@ exports.NodeStateTest = {
 		test.expect(4);
 		
 		var node = new NodeState({uri:URI1});
-		node.addOutgoingLink(URI2);
+		node.addOutgoingLink({linkUri:URI2});
 		test.ok(node.hasPendingOutgoingLink(URI2));
 		test.equal(node.outgoingLinks.length, 0);
 		
@@ -150,15 +150,15 @@ exports.NodeStateTest = {
 			
 			test.done();
 		});
-		node.addIncomingLink(URI2);
+		node.addIncomingLink({linkUri:URI2});
 	},
 	
 	testRemoveIncomingLink: function(test) {
 		test.expect(5);
 		
 		var node = new NodeState({uri:URI1});
-		node.addIncomingLink(URI2);
-		node.addIncomingLink(URI3);
+		node.addIncomingLink({linkUri:URI2});
+		node.addIncomingLink({linkUri:URI3});
 		node.receiveLinkAddAck(URI2, INCOMING, true);
 		test.ok(!node.hasPendingIncomingLink(URI2));
 		test.ok(node.hasPendingIncomingLink(URI3));
@@ -180,7 +180,7 @@ exports.NodeStateTest = {
 		test.expect(4);
 		
 		var node = new NodeState({uri:URI1});
-		node.addIncomingLink(URI2);
+		node.addIncomingLink({linkUri:URI2});
 		test.ok(node.hasPendingIncomingLink(URI2));
 		test.equal(node.incomingLinks.length, 0);
 		

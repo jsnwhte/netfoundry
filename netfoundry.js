@@ -21,6 +21,7 @@ exports.initialize = function(callback) {
 	Class that represents a network node and houses its state
 */
 exports.NodeState = require('./lib/nodeState.js');
+exports.LinkState = require('./lib/linkState.js');
 
 var receivers = {};
 function _startProcessor(nodeType, callback) {
