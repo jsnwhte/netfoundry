@@ -1,12 +1,12 @@
 var netfoundry = require('../../netfoundry.js');
 var async = require('async');
 
-netfoundry.config.stateChangeProcessors['simple'] = '../examples/chain/simpleStateChangeProcessor.js';
+netfoundry.config.stateChangeProcessors['http://obj.netfoundry.org/simple'] = '../examples/chain/simpleStateChangeProcessor.js';
 
 netfoundry.initialize(setSubscriber);
 
 function setSubscriber() {
-	netfoundry.startProcessor('simple', run);
+	netfoundry.startProcessor('http://obj.netfoundry.org/simple', run);
 }
 
 function run() {
@@ -16,19 +16,19 @@ function run() {
 	for (var i=0; i < 10; i++) {
 		nodes[i] = new netfoundry.NodeState({
 			uri: getUri(i),
-			type: 'simple'
+			type: 'http://obj.netfoundry.org/simple'
 		});
 		nodes[i].save();
 	}
 
-	netfoundry.NodeState.count('simple', function(err, count) {
+	netfoundry.NodeState.count('http://obj.netfoundry.org/simple', function(err, count) {
 		console.log('There are %d "simple" nodes', count);
 	});
 
 	//create some links, chaining nodes together
 	var tasks = [];
 	for (var i=0; i < 9; i++) {
-		var linkState = new netfoundry.LinkState({linkUri: nodes[i+1].uri, type: 'simple_link'});
+		var linkState = new netfoundry.LinkState({linkUri: nodes[i+1].uri, type: 'http://obj.netfoundry.org/simple_link'});
 		var node = nodes[i];
 		tasks.push(createLinkFunction(node, linkState));
 	}
@@ -50,7 +50,7 @@ function run() {
 					setTimeout(function() {
 						netfoundry.NodeState.load(getUri(0), function(err,node) {
 							console.log(node.state); //'hello876543210'
-							process.exit();
+							netfoundry.stop(function() {process.exit();});
 						});
 					}, 1000);
 				});
@@ -60,5 +60,5 @@ function run() {
 }
 
 function getUri(i) {
-	return 'http://foo.com/simple/' + i.toString();
+	return 'http://obj.netfoundry.org/simple/' + i.toString();
 }

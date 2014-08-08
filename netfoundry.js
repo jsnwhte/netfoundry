@@ -6,7 +6,8 @@
 	The netfoundry config object
 	@returns {Object}
 */
-exports.config = require('./lib/config.js');
+var config = require('./lib/config.js');
+exports.config = config;
 
 /**
 	Initializes the netfoundry communication and storage systems
@@ -47,35 +48,56 @@ function _stopProcessor(nodeType, callback) {
 
 
 /**
-	Starts a message processing server for a given node type
-	@param {string} nodeType The type of node for which to process messages
+	Starts a message processing server for node types
+	@param [{string|Array}] nodeTypes The type(s) of node(s) for which to process messages.
+                                      If this parameter is omitted, then the 
+									  <tt>config.processNodeTypes<tt> value is used.
 	@param {Function()} callback The function to be invoked when the processor is started
 */
-exports.startProcessor = function(nodeType, callback) {
-	if (receivers[nodeType]) {
-		_stopProcessor(nodeType, function() {
-			_startProcessor(nodeType, callback);
-		});	
+exports.startProcessor = function(args) {
+	if (args.length == 0) return;
+	
+	var callback = null;
+	var nodeTypes = config.processNodeTypes;
+	
+	for (var i=0; i<arguments.length; i++) {
+	
+		if (typeof(arguments[i]) == 'function') {
+			callback = arguments[i];
+		} 
+		else if (typeof(arguments[i]) == 'string') {
+			nodeTypes = [arguments[i]];
+		} 
+		else if (Array.isArray(arguments[i])) {
+			nodeTypes = arguments[i];
+		}
 	}
-	else {
-		_startProcessor(nodeType, callback);
+	
+	_startNextProcessor();
+	
+	function _startNextProcessor() {
+		if (nodeTypes.length > 0) {
+			var nextType = nodeTypes.pop();
+			if (receivers[nextType]) {
+				_stopProcessor(nextType, function() {
+					_startProcessor(nextType, _startNextProcessor);
+				});	
+			}
+			else {
+				_startProcessor(nextType, _startNextProcessor);
+			}
+		}
+		else {
+			if (callback) callback();
+		}
 	}
-};
-
-/**
-	Stops the message processing server for a given node type
-	@param {string} nodeType The type of node processed by the processor to be stopped
-	@param {Function()} callback The function to be invoked when the processor is stopped
-*/
-exports.stopProcessor = function(nodeType, callback) {
-	_stopProcessor(nodeType, callback);
 };
 
 /**
 	Stops all message processing servers
 	@param {Function()} callback The function to be invoked when the processors are stopped
 */
-exports.stopAllProcessors = function(callback) {
+exports.stopProcessor = function(callback) {
 	var nodeTypes = [];
 	for (var nodeType in receivers) {
 		nodeTypes.push(nodeType);
@@ -86,12 +108,10 @@ exports.stopAllProcessors = function(callback) {
 	function _stopNextProcessor() {
 		if (nodeTypes.length > 0) {
 			var nextType = nodeTypes.pop();
-			_stopProcessor(nextType, function() {
-				_stopNextProcessor();
-			});
+			_stopProcessor(nextType, _stopNextProcessor);
 		}
 		else {
-			callback();
+			if (callback) callback();
 		}
 	}
 };
@@ -101,7 +121,7 @@ exports.stopAllProcessors = function(callback) {
 	@param {Function()} callback The function to be invoked when netfoundry is stopped
 */
 exports.stop = function(callback) {
-	exports.stopAllProcessors(function() {
+	exports.stopProcessor(function() {
 		var amqpManager = require('./lib/amqpManager.js');
 		amqpManager.stop();
 		callback();

@@ -1,31 +1,45 @@
 {
-  "author": "Jason White <zympht@gmail.com> (http://zympht.com)",
+  "author": "Jason White <jason@envisionsofttech.com>",
   "name": "netfoundry",
   "description": "platform for self-organizing collaborative object networks",
   "version": "0.0.1",
-  "keywords": ["network"],
+  "keywords": [
+    "network"
+  ],
   "maintainers": [
-  	{"name":"Jason White", "email":"zympht@gmail.com", "web":"http://zympht.com"}
+    {
+      "name": "Jason White",
+      "email": "jason@envisionsofttech.com"
+    }
   ],
   "contributors": [
-  	{"name":"Jason White", "email":"zympht@gmail.com", "web":"http://zympht.com"}
+    {
+      "name": "Jason White",
+      "email": "jason@envisionsofttech.com"
+    }
   ],
   "licenses": [
-  	{"type":"University of Illinois/NCSA Open Source License", "url":"http://otm.illinois.edu/uiuc_openSource"}
+    {
+      "type": "University of Illinois/NCSA Open Source License",
+      "url": "http://otm.illinois.edu/uiuc_openSource"
+    }
   ],
   "homepage": "http://netfoundry.org",
   "repository": {
     "type": "git",
-    "url": "git://github.com/zympht/netfoundry.git"
+    "url": "git://github.com/analogsoul/netfoundry.git"
   },
   "main": "netfoundry.js",
   "dependencies": {
-  	"amqp":"0.1.4",
-  	"mongoose":"3.3.1"
+    "amqp": "0.1.4",
+    "mongoose": "3.3.1"
   },
   "devDependencies": {
-  	"nodeunit":"0.7.4",
-  	"Mockery":"0.1.2"
+    "nodeunit": "0.7.4",
+    "Mockery": "0.1.2",
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-mocha": "~0.4.11"
   },
   "optionalDependencies": {},
   "engines": {
